@@ -32,6 +32,7 @@ bool GameScene::init()
     {
         return false;
     }
+	this->setKeypadEnabled(true);
     
     cocos2d::CCSize visibleSize = cocos2d::CCDirector::sharedDirector()->getVisibleSize();
     cocos2d::CCPoint origin = cocos2d::CCDirector::sharedDirector()->getVisibleOrigin();
@@ -109,6 +110,15 @@ void GameScene::updateGame(float dt) {
         return;
     }
 }
+
+void GameScene::keyBackClicked(void) {
+		CCLog("\nKeyBack pressed\n");
+		CCDirector::sharedDirector()->end();
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		exit(0);
+	#endif
+}
+
 
 
 void GameScene::menuCloseCallback(cocos2d::CCObject* pSender)

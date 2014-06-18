@@ -30,6 +30,8 @@ private:
     Balloon* m_balloon;
     bool m_gameOver;
     void updateGame(float dt);
+protected:
+    void keyBackClicked(void);
 };
 
 NS_CATS_END
