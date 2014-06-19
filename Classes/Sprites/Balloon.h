@@ -22,6 +22,7 @@ public:
 	virtual ~Balloon();
     static Balloon* createWithFile(const char * pszFileName);
     static Balloon* createWithTexture(cocos2d::CCTexture2D *pTexture);
+	virtual void SCUpdate(float dt);
 	void afterUpdate(float dt);
     
 protected:

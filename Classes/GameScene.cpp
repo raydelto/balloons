@@ -70,13 +70,7 @@ bool GameScene::init()
     this->addObject(pBalloon);
     this->m_balloon = pBalloon;
     this->addChild(pBalloon, 3);
-
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
+  
     cocos2d::CCLabelTTF* pLabel = cocos2d::CCLabelTTF::create("Save The Balloons", "Arial", 24);
     
     // position the label on the center of the screen
@@ -90,7 +84,7 @@ bool GameScene::init()
     //CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music.ogg", true);
     CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(
                     this, 0);
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Music/Background.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Music/Background.wav", true);
     
     return true;
 }
@@ -98,7 +92,7 @@ bool GameScene::init()
 void GameScene::updateGame(float dt) {
     if (this->m_gameOver) {
         this->unschedule(schedule_selector(GameScene::updateGame));
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+        //CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
         CocosDenshion::SimpleAudioEngine::sharedEngine()->stopAllEffects();
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("uh.wav", false);
         //GameOverScene *pScene = GameOverScene::create();

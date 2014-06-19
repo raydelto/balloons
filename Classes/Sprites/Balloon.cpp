@@ -43,8 +43,9 @@ Balloon* Balloon::createWithTexture(cocos2d::CCTexture2D *pTexture){
 void explode(Balloon* balloon) {
     //this->unschedule(schedule_selector(JumpingGame::updateGame));
     //stopAllActions();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopAllEffects();
+	//Evitando que la música se detenga
+    /*CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopAllEffects();*/
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/pop.wav", false);
 //    GameOverScene *pScene = GameOverScene::create();
 //    char scoreText[128];
@@ -57,8 +58,20 @@ void explode(Balloon* balloon) {
     return;
 }
 
+
+void Balloon::SCUpdate(float dt) {
+	this->beforeUpdate(dt);
+    this->m_X += this->m_speedX * dt;
+    this->m_Y += this->m_speedY * dt;
+    float x = this->m_X;
+    float y = this->m_Y;
+    this->setPosition(ccp(x, y));
+	this->afterUpdate(dt);
+}
+
 void Balloon::afterUpdate(float dt) {
-    CCLog("%f", this->m_Y);
+	//Raydelto: Comenté este logs, ya que escribir un log es una operación costosa, desdocumenta solo si quieres probar algo específico.
+    //CCLog("%f", this->m_Y);
     if (this->m_Y > 600) {
         explode(this);
         this->setXY(this->m_X, 0);

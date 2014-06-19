@@ -38,11 +38,5 @@ void SCSprite::afterUpdate(float dt) {
 }
 
 void SCSprite::SCUpdate(float dt) {
-	this->beforeUpdate(dt);
-    this->m_X += this->m_speedX * dt;
-    this->m_Y += this->m_speedY * dt;
-    float x = this->m_X;
-    float y = this->m_Y;
-    this->setPosition(ccp(x, y));
-	this->afterUpdate(dt);
+	//Ahora mismo está vacío, anteriormente todos los SCPrites iban a subir, comportamiento que solo tendría sentido con el globo
 }
