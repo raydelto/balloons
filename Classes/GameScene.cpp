@@ -84,7 +84,7 @@ bool GameScene::init()
     //CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music.ogg", true);
     CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(
                     this, 0);
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Music/Background.wav", true);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Music/Background.mp3", true);
     
     return true;
 }
