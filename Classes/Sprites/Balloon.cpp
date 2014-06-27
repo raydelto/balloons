@@ -72,10 +72,10 @@ void Balloon::SCUpdate(float dt) {
 void Balloon::afterUpdate(float dt) {
 	//Raydelto: Comenté este logs, ya que escribir un log es una operación costosa, desdocumenta solo si quieres probar algo específico.
     //CCLog("%f", this->m_Y);
-    if (this->m_Y > 600) {
+    /*if (this->m_Y > 600) {
         explode(this);
         this->setXY(this->m_X, 0);
-    }
+    }*/
 }
 
 

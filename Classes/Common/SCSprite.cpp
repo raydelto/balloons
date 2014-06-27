@@ -31,6 +31,14 @@ void SCSprite::setSpeedY(float speed) {
     this->m_speedY = speed;
 }
 
+float SCSprite::getSpeedY() {
+	return this->m_speedY;
+}
+
+float SCSprite::getSpeedX() {
+	return this->m_speedX;
+}
+
 void SCSprite::beforeUpdate(float dt) {
 }
 

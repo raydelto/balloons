@@ -24,6 +24,9 @@ public:
         virtual void setXY(float x, float y);
         virtual void setSpeedX(float speed);
         virtual void setSpeedY(float speed);
+	    virtual float getSpeedX();
+        virtual float getSpeedY();
+
 protected:
     float m_X;
     float m_Y;

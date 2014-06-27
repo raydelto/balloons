@@ -21,7 +21,7 @@ public:
 	SCScene();
         virtual void SCUpdate(float dt);
 	virtual ~SCScene();
-        virtual bool init();
+        //virtual bool init();
 protected:
     virtual void updating();
     void addObject(SCSprite* o);
