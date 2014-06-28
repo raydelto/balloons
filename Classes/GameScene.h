@@ -8,6 +8,10 @@
 #include "Sprites/Balloon.h"
 #include "Backgrounds/Simple.h"
 #define DEFAULT_Y_SPEED 20
+#define NUM_ABANICOS 10
+#define NUM_RAMAS 7
+#define BALLOON_IS_MOVING 1983 //valor arbitrario sin rigor alguno que representa una constante para saber el balón está siendo movido por un abanico
+#define FAN_BLOWED 1984 //valor arbitrario sin rigor alguno que representa una constante para saber el abanico ya sopló
 USING_NS_CATS;
 
 NS_CATS_BEGIN
@@ -27,18 +31,31 @@ private:
 	CCSize m_winSize;
 	CCSprite* m_btnInflar;
 	CCSprite* m_btnDesinflar;
+	CCArray* abanicos;
+	CCArray* ramas;
     bool m_gameOver;	
+	bool m_won;	
     void updateGame(float dt);
+	void updateViento(float dt);
 	void scrollScene(float dt);
 	void scrollBaloon(float dt);
 	void scroll(CCSprite* sprite, float dt, int direction);
 	void initButtons();
-	bool collisions(cocos2d::CCSprite* sprite, cocos2d::CCPoint* point);
-	bool collisions(cocos2d::CCSprite* sprite1,	cocos2d::CCSprite* sprite2);
+	void initAbanicos();
+	void initCloseMenu();
+	void initBalloon();
+	void initRamas();
+	void initBackground();	
+	void checkCollisions();
+	bool collisions(CCRect &rect, CCSprite* sprite);
+	bool collisions(CCSprite* sprite1,	CCPoint* point);
+	bool collisions(CCSprite* sprite1,	CCSprite* sprite2);
 	void inflarGlobo(float dt);
 	void desinflarGlobo(float dt);
-    virtual void ccTouchesBegan(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
-    virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
+	void balloonMoveFinished(CCNode* sender);
+    virtual void ccTouchesBegan(CCSet* touches, CCEvent* event);
+    virtual void ccTouchesEnded(CCSet* touches, CCEvent* event);
+	void showMessage(const char* message);
 
 
 	
