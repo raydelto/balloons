@@ -4,7 +4,7 @@
 #include "SimpleAudioEngine.h"
 #include "Common/SCScene.h"
 
-GameScene::GameScene(): m_gameOver(false), m_won(false) {
+GameScene::GameScene(): m_gameOver(false), m_won(false), initialized(false) {
     m_winSize = CCDirector::sharedDirector()->getWinSize();
 	abanicos = new CCArray();
 	ramas = new CCArray();
@@ -142,6 +142,70 @@ void GameScene::initCloseMenu()
     this->addChild(pMenu, 4);
 }
 
+void  GameScene::initRestartMenu()
+{
+	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+
+    CCMenuItemImage *mnuRestartImage = CCMenuItemImage::create(
+                                        "CloseNormal.png",
+                                        "CloseSelected.png",
+                                        this,
+                                        menu_selector(GameScene::menuRestartCallback));
+    
+	mnuRestartImage->setPosition(ccp(visibleSize.width /2 , visibleSize.height/2));
+
+    CCMenu* pMenu = CCMenu::create(mnuRestartImage, NULL);
+    pMenu->setPosition(cocos2d::CCPointZero);
+    this->addChild(pMenu, 4);
+
+}
+
+
+void GameScene::menuRestartCallback(CCObject* pSender)
+{
+	CCDirector* pDirector = CCDirector::sharedDirector();
+
+    cocos2d::CCEGLView* pEGLView = cocos2d::CCEGLView::sharedOpenGLView();
+
+    pDirector->setOpenGLView(pEGLView);
+	
+    // turn on display FPS
+    pDirector->setDisplayStats(false);
+
+    // set FPS. the default value is 1.0/60 if you don't call this
+    pDirector->setAnimationInterval(1.0 / 60);
+
+
+	CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+	std::vector<std::string> searchPaths;
+	CCSize designSize = CCSizeMake(360, 720);
+
+	if (screenSize.height >= 1280) {
+		//High Resolution
+		searchPaths.push_back("hd");
+		pDirector->setContentScaleFactor(1280.0f / designSize.height);
+
+	} else if (screenSize.height >= 800) {
+		//Mid resolution
+		searchPaths.push_back("md");
+		pDirector->setContentScaleFactor(800.0f / designSize.height);
+
+	} else {
+		//Low resolution
+		searchPaths.push_back("sd");
+		pDirector->setContentScaleFactor(320.0f / designSize.height);
+
+	}
+
+	cocos2d::CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
+	cocos2d::CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, kResolutionExactFit);    
+	this->cleanup();
+	pDirector->replaceScene(GameScene::scene());
+
+}
+
+
 
 void GameScene::initBackground()
 {
@@ -169,13 +233,18 @@ void GameScene::initBalloon()
 
 bool GameScene::init()
 {    
-    if ( !CCLayer::init() )
+	CCLog("Init");
+    if  (!CCLayer::init() )
     {
 		CCLog("Error al iniciar escena");
         return false;
     }
+
 	this->setKeypadEnabled(true);
 	this->setTouchEnabled(true);
+	
+	m_won = false;
+	m_gameOver = false;
 	initButtons();
 	initCloseMenu();
 	initBackground();
@@ -241,7 +310,8 @@ void GameScene::updateGame(float dt)
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 		m_balloon->setVisible(false);
 		showMessage("Game Over");
-		this->unschedule(schedule_selector(GameScene::updateGame));        	
+		this->unschedule(schedule_selector(GameScene::updateGame));   
+		this->initRestartMenu();
 		return;
 	}
 	if (m_won) 

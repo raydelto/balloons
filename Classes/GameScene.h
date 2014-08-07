@@ -23,6 +23,7 @@ public:
 	GameScene();
     static cocos2d::CCScene* scene();
     void menuCloseCallback(CCObject* pSender);
+	void menuRestartCallback(CCObject* pSender);
     CREATE_FUNC(GameScene);
     
 private:
@@ -33,6 +34,7 @@ private:
 	CCSprite* m_btnDesinflar;
 	CCArray* abanicos;
 	CCArray* ramas;
+	bool initialized;
     bool m_gameOver;	
 	bool m_won;	
     void updateGame(float dt);
@@ -45,6 +47,7 @@ private:
 	void initCloseMenu();
 	void initBalloon();
 	void initRamas();
+	void initRestartMenu();
 	void initBackground();	
 	void checkCollisions();
 	bool collisions(CCRect &rect, CCSprite* sprite);
@@ -52,6 +55,7 @@ private:
 	bool collisions(CCSprite* sprite1,	CCSprite* sprite2);
 	void inflarGlobo(float dt);
 	void desinflarGlobo(float dt);
+	
 	void balloonMoveFinished(CCNode* sender);
     virtual void ccTouchesBegan(CCSet* touches, CCEvent* event);
     virtual void ccTouchesEnded(CCSet* touches, CCEvent* event);
