@@ -2,38 +2,34 @@
 #define __GAME_SCENE_H__
 
 #include "cocos2d.h"
-
-#include "../Utilities/ns.h"
-#include "Common/SCScene.h"
 #include "Sprites/Balloon.h"
-#include "Backgrounds/Simple.h"
+
 #define DEFAULT_Y_SPEED 20
 #define NUM_ABANICOS 10
 #define NUM_RAMAS 7
 #define BALLOON_IS_MOVING 1983 //valor arbitrario sin rigor alguno que representa una constante para saber el balón está siendo movido por un abanico
 #define FAN_BLOWED 1984 //valor arbitrario sin rigor alguno que representa una constante para saber el abanico ya sopló
-USING_NS_CATS;
 
-NS_CATS_BEGIN
-
-class GameScene : public SCScene
+USING_NS_CC;
+class GameScene : public cocos2d::Layer
 {
 public:
     virtual bool init();  
 	GameScene();
-    static cocos2d::CCScene* scene();
-    void menuCloseCallback(CCObject* pSender);
+    static cocos2d::Scene* scene();
+    void menuCloseCallback(Ref* pSender);
 	void menuRestartCallback(CCObject* pSender);
+	static cocos2d::Scene* createScene();
     CREATE_FUNC(GameScene);
     
 private:
-	Simple* m_background;
-    Balloon* m_balloon;	
+    Sprite* m_background;
+    Balloon* m_balloon;
 	CCSize m_winSize;
-	CCSprite* m_btnInflar;
-	CCSprite* m_btnDesinflar;
-	CCArray* abanicos;
-	CCArray* ramas;
+	Sprite* m_btnInflar;
+	Sprite* m_btnDesinflar;
+	cocos2d::Vector<cocos2d::Sprite*> abanicos;
+	cocos2d::Vector<cocos2d::Sprite*> ramas;
 	bool initialized;
     bool m_gameOver;	
 	bool m_won;	
@@ -41,7 +37,7 @@ private:
 	void updateViento(float dt);
 	void scrollScene(float dt);
 	void scrollBaloon(float dt);
-	void scroll(CCSprite* sprite, float dt, int direction);
+	void scroll(Sprite* sprite, float dt, int direction);
 	void initButtons();
 	void initAbanicos();
 	void initCloseMenu();
@@ -50,23 +46,26 @@ private:
 	void initRestartMenu();
 	void initBackground();	
 	void checkCollisions();
-	bool collisions(CCRect &rect, CCSprite* sprite);
-	bool collisions(CCSprite* sprite1,	CCPoint* point);
-	bool collisions(CCSprite* sprite1,	CCSprite* sprite2);
+	bool collisions(Rect &rect, Sprite* sprite);
+	bool collisions(Sprite* sprite1,	Point* point);
+	bool collisions(Sprite* sprite1, Sprite* sprite2);
 	void inflarGlobo(float dt);
 	void desinflarGlobo(float dt);
+	void initBackButtonListener();
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	void initTouch();
 	
-	void balloonMoveFinished(CCNode* sender);
-    virtual void ccTouchesBegan(CCSet* touches, CCEvent* event);
-    virtual void ccTouchesEnded(CCSet* touches, CCEvent* event);
+	void balloonMoveFinished(Node* sender);
+    bool ccTouchesBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void ccTouchesEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 	void showMessage(const char* message);
 
 
 	
 protected:
-    void keyBackClicked(void);
+   // void keyBackClicked(void);
 };
 
-NS_CATS_END
+
 
 #endif // __GAME_SCENE_H__

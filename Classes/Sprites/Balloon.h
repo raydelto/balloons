@@ -8,13 +8,9 @@
 #define BALLOON_H_
 
 #include <cocos2d.h>
-#include "../../Utilities/ns.h"
 #include "../Common/SCSprite.h"
 
-USING_NS_CATS;
-
-NS_CATS_BEGIN
-
+USING_NS_CC;
 class Balloon: public SCSprite {
 public:
 
@@ -25,10 +21,9 @@ public:
 	virtual void SCUpdate(float dt);
 	void afterUpdate(float dt);
     
-protected:
     
 };
 
-NS_CATS_END
+
 
 #endif /* BALLOON_H_ */

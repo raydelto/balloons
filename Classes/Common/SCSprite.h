@@ -8,13 +8,12 @@
 #define SCSPRITE_H_
 
 #include <cocos2d.h>
-#include "../../Utilities/ns.h"
 
-USING_NS_CATS;
 
-NS_CATS_BEGIN
+USING_NS_CC;
 
-class SCSprite: public cocos2d::CCSprite {
+
+class SCSprite: public Sprite {
 public:
 	SCSprite();
         virtual void SCUpdate(float dt);
@@ -34,6 +33,5 @@ protected:
     float m_speedY;
 };
 
-NS_CATS_END
 
 #endif /* SCSPRITE_H_ */

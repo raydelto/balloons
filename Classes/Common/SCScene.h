@@ -16,7 +16,7 @@ USING_NS_CATS;
 
 NS_CATS_BEGIN
 
-class SCScene: public cocos2d::CCLayer {
+class SCScene: public cocos2d::Layer {
 public:
 	SCScene();
         virtual void SCUpdate(float dt);
