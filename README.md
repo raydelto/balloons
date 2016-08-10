@@ -2,7 +2,7 @@
 ==============
 ![Save the balloons screenshot](http://raydelto.org/balloons.png)
 
-This is a simple game created using Cocos2d-x C++ framework, branch 2.
+This is a simple game created using Cocos2d-x C++ framework, branches 2 and 3.
 
 #Creators:
 
