@@ -13,4 +13,4 @@ This is a simple game created using Cocos2d-x C++ framework, branches 2 and 3.
 ##Graphic Designer
 - Fernando Franco   (fernandoff85@gmail.com)
 
-[Download the APK](http://www.raydelto.org/balloons.apk "Download the Android build")
+[Download the APK](https://github.com/raydelto/balloons/releases/download/v0.1-alpha/balloons.apk "Download the Android build")
